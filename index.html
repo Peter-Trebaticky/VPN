@@ -88,6 +88,9 @@
       const data = snapshot.val();
       if (data && data.name) {
         updateStatus(data.name, data.startTime);
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = (checkbox.value === data.name);
+        });
       } else {
         resetStatus();
       }
@@ -121,6 +124,7 @@
       stopTimer();
       statusDiv.className = 'green';
       statusDiv.textContent = 'VPN je voľná';
+      checkboxes.forEach(checkbox => checkbox.checked = false);
     }
 
     function startTimer(startTime) {
