@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VPN Agrokomplex</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    #status {
+      width: 300px;
+      height: 100px;
+      line-height: 50px;
+      margin: 20px auto;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #status.green {
+      background-color: green;
+    }
+    #status.red {
+      background-color: red;
+    }
+    .names {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .names label {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+    }
+    .names input {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>VPN Agrokomplex</h1>
+
+  <div id="status" class="green">VPN je voľná</div>
+
+  <div class="names">
+    <label><input type="checkbox" value="Jakub"> Jakub</label>
+    <label><input type="checkbox" value="Dominik"> Dominik</label>
+    <label><input type="checkbox" value="Maks"> Maks</label>
+    <label><input type="checkbox" value="Šimon"> Šimon</label>
+    <label><input type="checkbox" value="Dimitriy"> Dimitriy</label>
+    <label><input type="checkbox" value="Peto"> Peto</label>
+  </div>
+
+  <script>
+    const checkboxes = document.querySelectorAll('.names input');
+    const statusDiv = document.getElementById('status');
+    let timer;
+    let startTime;
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function () {
+        if (this.checked) {
+          checkboxes.forEach(box => box.checked = false); 
+          this.checked = true; 
+          const name = this.value;
+          statusDiv.className = 'red';
+          statusDiv.textContent = name + ' je pripojený - čas pripojenia: 00:00:00';
+          startTimer();
+        } else {
+          stopTimer();
+          statusDiv.className = 'green';
+          statusDiv.textContent = 'VPN je voľná';
+        }
+      });
+    });
+
+    function startTimer() {
+      startTime = new Date();
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        const now = new Date();
+        const elapsed = Math.floor((now - startTime) / 1000);
+        const hours = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+        const seconds = String(elapsed % 60).padStart(2, '0');
+        statusDiv.textContent = statusDiv.textContent.split(' - ')[0] + ' - čas pripojenia: ' + hours + ':' + minutes + ':' + seconds;
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timer);
+    }
+  </script>
+
+</body>
+</html>
