@@ -49,7 +49,7 @@
 
   <h1>VPN Agrokomplex</h1>
 
-  <div id="status" class="green">VPN je voľná</div>
+  <div id="status" class="green">VPN is available</div>
 
   <div class="names">
     <label><input type="checkbox" value="Jakub"> Jakub</label>
@@ -116,14 +116,14 @@
     function updateStatus(name, startTime) {
       statusDiv.className = 'red';
       startTime = new Date(startTime);
-      statusDiv.textContent = name + ' je pripojený - čas pripojenia: 00:00:00';
+      statusDiv.textContent = name + ' is connected - connection time: 00:00:00';
       startTimer(startTime);
     }
 
     function resetStatus() {
       stopTimer();
       statusDiv.className = 'green';
-      statusDiv.textContent = 'VPN je voľná';
+      statusDiv.textContent = 'VPN is available';
       checkboxes.forEach(checkbox => checkbox.checked = false);
     }
 
@@ -135,7 +135,7 @@
         const hours = String(Math.floor(elapsed / 3600)).padStart(2, '0');
         const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
         const seconds = String(elapsed % 60).padStart(2, '0');
-        statusDiv.textContent = statusDiv.textContent.split(' - ')[0] + ' - čas pripojenia: ' + hours + ':' + minutes + ':' + seconds;
+        statusDiv.textContent = statusDiv.textContent.split(' - ')[0] + ' - connection time: ' + hours + ':' + minutes + ':' + seconds;
       }, 1000);
     }
 
